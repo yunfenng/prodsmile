@@ -1,8 +1,6 @@
 package coding.collection;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author Jaa
@@ -44,5 +42,19 @@ public class RandomStringGenerator<T> implements Iterable<T> {
         for (int i = 0; i < 100; i++) {
             System.out.println(it.next());
         }
+
+        // ArrayList<String> arr = new ArrayList<>();
+        // arr.add("123");
+        // arr.add("abc");
+        // var stringArr = arr.toArray(new String[10]);
+        // System.out.println(stringArr[0] + ", " + stringArr[1]);
+
+        ArrayList<String> arr = new ArrayList<>();
+        arr.toArray(new String[0]);
+        // Method Reference ::
+        // Lazy evaluation
+        arr.toArray(String[]::new);
+
+        
     }
 }
