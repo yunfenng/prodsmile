@@ -15,7 +15,6 @@ public class HashSetvsTreeSet {
         hashSet.add(2);
         hashSet.add(81);
 
-
         System.out.println(hashSet.stream().map(x -> x.toString()).collect(Collectors.joining(",")));
 
         // TreeSet是红黑树实现的
@@ -46,7 +45,6 @@ public class HashSetvsTreeSet {
         var random = new Random();
         LinkedList<String> words = new LinkedList<>();
         for (int i = 0; i < 1000000; i++) {
-
             var word = random.ints(97, 123)
                     .limit(12)
                     .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
@@ -54,7 +52,6 @@ public class HashSetvsTreeSet {
 
             words.add(word);
         }
-
 
         var hashSet = new HashSet<String>();
         var treeSet = new TreeSet<String>();
