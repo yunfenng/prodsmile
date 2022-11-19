@@ -49,7 +49,6 @@ public class HashSetvsTreeSet {
                     .limit(12)
                     .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                     .toString();
-
             words.add(word);
         }
 
