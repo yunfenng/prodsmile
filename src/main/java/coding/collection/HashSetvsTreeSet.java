@@ -5,11 +5,15 @@ import org.junit.Test;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * HashSet & TreeSet 性能测试
+ */
 public class HashSetvsTreeSet {
 
     @Test
     public void test_order() {
         var hashSet = new HashSet<Integer>();
+        // hashSet.add(null);
         hashSet.add(3);
         hashSet.add(7);
         hashSet.add(2);
