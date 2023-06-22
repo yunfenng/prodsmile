@@ -31,7 +31,10 @@ public class LRUCache<K, V> implements Iterable<K> {
 
     @Override
     public Iterator<K> iterator() {
-        var it = cache.entrySet().iterator();
+        // 等价
+        return cache.keySet().iterator();
+
+        /*var it = cache.entrySet().iterator();
 
         return new Iterator<K>() {
             @Override
@@ -43,7 +46,7 @@ public class LRUCache<K, V> implements Iterable<K> {
             public K next() {
                 return it.next().getKey();
             }
-        };
+        };*/
     }
 
 
