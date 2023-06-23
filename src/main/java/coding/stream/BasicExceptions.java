@@ -2,6 +2,8 @@ package coding.stream;
 
 import org.junit.Test;
 
+import java.util.Random;
+import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -80,5 +82,28 @@ public class BasicExceptions {
                 .flatMap(str -> str.chars().mapToObj(i -> (char) i))
                 .collect(Collectors.toSet());
         System.out.println(set.stream().collect(Collectors.toList()));
+    }
+
+    @Test
+    public void test_parallel() {
+        var r = new Random();
+        var list = IntStream.range(0, 1_000_000)
+                .map(x -> r.nextInt(1_000_000))
+                // int -> Integer, collect only encapsulation Object
+                .boxed()
+                .collect(Collectors.toList());
+        long t0 = System.currentTimeMillis();
+        System.out.println(list.stream().max((a, b) -> a - b));
+        System.out.println("Serial time: " + (System.currentTimeMillis() - t0));
+
+        var pool = new ForkJoinPool(2);
+        long t1 = System.currentTimeMillis();
+        // System.out.println(list.stream().parallel().max((a, b) -> a - b));
+        var max = pool.submit(() -> list.parallelStream().max((a, b) -> a - b).get());
+        System.out.println("Parallel time: " + (System.currentTimeMillis() - t1));
+
+        // 11 (核数-1)
+        // Spliter 1024 -> Thread0 1024 -> Thread1
+        System.out.println(Runtime.getRuntime().availableProcessors());
     }
 }
