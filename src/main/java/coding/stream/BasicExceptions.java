@@ -2,6 +2,7 @@ package coding.stream;
 
 import org.junit.Test;
 
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -49,11 +50,35 @@ public class BasicExceptions {
                 .reduce(Math::max);
                 // .orElse(0);
                 // .reduce(0, Integer::min);
-        // .reduce(0, Math::min); // add param 0 is safer
+                // .reduce(0, Math::min); // add param 0 is safer
         System.out.println(result.isPresent());
         // Supplier<T>
         System.out.println(result.orElseGet(() -> 0)); // Supplier<T>
     }
 
 
+    @Test
+    public void test_mutation() {
+        // stateful：sorted, skip, limit
+        // stateless: map, reduce
+        var stream = Stream.of(1,6,7,3,9,2,5).sorted();
+        stream.forEach(System.out::println);
+    }
+
+    // 有副作用的函数叫非纯函数，没有副作用的函数叫纯函数（pure function）
+    int c = 0;
+    int add(int a, int b) {
+        // Side effect 副作用
+        c ++;
+        System.out.println("xxx");
+        return a + b;
+    }
+
+    @Test
+    public void test_flatMap() {
+        var set = Stream.of("My", "Mine")
+                .flatMap(str -> str.chars().mapToObj(i -> (char) i))
+                .collect(Collectors.toSet());
+        System.out.println(set.stream().collect(Collectors.toList()));
+    }
 }
